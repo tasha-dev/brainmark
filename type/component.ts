@@ -10,6 +10,7 @@ export interface RootLayoutProps {
 export interface ContainerProps {
   className?: string;
   hasHeader?: boolean;
+  hasFooter?: boolean;
   children: ReactNode;
 }
 
@@ -22,5 +23,9 @@ export interface HeaderProps {
 }
 
 export interface BeamBgProps {
+  className?: string;
+}
+
+export interface FooterProps {
   className?: string;
 }
