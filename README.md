@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Brainmark 🧠🔖
+
+**Save links with a mandatory 'why' sentence — so your bookmarks become a smart, resurfacing second brain you never forget.**
+
+Tired of bookmark graveyards? Brainmark forces you to write one sentence explaining _why_ you're saving a link — turning fleeting saves into lasting, intentional knowledge. With daily resurfacing inspired by spaced repetition, old links come back just when you need them most.
+
+## Why Brainmark?
+
+Most bookmark tools let you save endlessly... and forget endlessly. Brainmark changes that:
+
+- **Mandatory Reason**: You _cannot_ save a link without explaining why in one sentence. This simple rule anchors context for future-you.
+- **Intelligent Resurfacing**: Links reappear daily (or on custom intervals) for quick review — reinforcing memory and prompting action or cleanup.
+- **Clean, Focused Experience**: No ads, no clutter. Just your personal knowledge network.
+
+## Features (MVP)
+
+- Add links with required "why" reason
+- Tagging system
+- Search & filter
+- Edit, archive, or delete
+- Dark mode & minimalist UI
+
+## Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/yourusername/brainmark.git
+cd brainmark
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
