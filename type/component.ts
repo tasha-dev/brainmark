@@ -29,3 +29,12 @@ export interface BeamBgProps {
 export interface FooterProps {
   className?: string;
 }
+
+export interface AppLayoutProps {
+  children: ReactNode;
+}
+
+export interface SideBarProps {
+  open?: boolean;
+  onOpenChange?: (val: boolean) => void;
+}

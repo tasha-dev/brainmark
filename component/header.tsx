@@ -25,7 +25,7 @@ export default function Header({ className }: HeaderProps): JSX.Element {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button asChild size={"icon-lg"} variant={"ghost"}>
-              <Link href="/app">
+              <Link href="/dashboard">
                 <Bookmark />
               </Link>
             </Button>

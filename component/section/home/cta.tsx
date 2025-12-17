@@ -15,7 +15,7 @@ export default function CTA(): JSX.Element {
           <span className="font-bold"> Graveyards</span> forever
         </h3>
         <Button asChild className="w-fit mx-auto flex" size={"lg"}>
-          <Link href="/app">{"Get Started — It's Free"}</Link>
+          <Link href="/dashboard">{"Get Started — It's Free"}</Link>
         </Button>
       </div>
     </section>
