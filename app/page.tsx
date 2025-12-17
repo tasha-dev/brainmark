@@ -2,6 +2,7 @@
 // Importing part
 import BeamBg from "@/component/beamBg";
 import Container from "@/component/layout/container";
+import CTA from "@/component/section/home/cta";
 import Features from "@/component/section/home/features";
 import Hero from "@/component/section/home/hero";
 import { JSX } from "react";
@@ -16,6 +17,7 @@ export default function HomePage(): JSX.Element {
       <Container hasHeader className="space-y-12">
         <Hero />
         <Features />
+        <CTA />
       </Container>
     </>
   );
