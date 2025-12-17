@@ -6,12 +6,13 @@
 import { JSX } from "react";
 import { BeamBgProps } from "@/type/component";
 import Beams from "./ui/beams";
+import { cn } from "@/lib/util";
 
 // Creating and exporting BeamBg component as default
 export default function BeamBg({ className }: BeamBgProps): JSX.Element {
   // Returning JSX
   return (
-    <div className={className}>
+    <div className={cn("dark:invert-0 invert", className)}>
       <Beams
         beamWidth={2}
         beamHeight={15}

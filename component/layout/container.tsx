@@ -1,6 +1,5 @@
 // Codes by mahdi tasha
 // Importing part
-import { cn } from "@/lib/util";
 import { ContainerProps } from "@/type/component";
 import { JSX } from "react";
 import Header from "../header";
@@ -15,8 +14,8 @@ export default function Container({
   return (
     <>
       {hasHeader && <Header />}
-      <div className={cn("max-w-3xl min-h-dvh mx-auto p-4", className)}>
-        <main>{children}</main>
+      <div className="max-w-3xl min-h-dvh mx-auto p-4">
+        <main className={className}>{children}</main>
       </div>
     </>
   );

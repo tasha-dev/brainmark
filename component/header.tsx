@@ -14,7 +14,7 @@ export default function Header({ className }: HeaderProps): JSX.Element {
   return (
     <header
       className={cn(
-        "flex items-center justify-between gap-3 backdrop-blur-2xl border border-foreground/10 lg:rounded-xl p-4 lg:w-2xl w-full lg:fixed lg:left-1/2 lg:top-0 lg:-translate-x-1/2 lg:translate-y-4 bg-foreground/5",
+        "flex items-center justify-between gap-3 backdrop-blur-2xl border border-foreground/10 lg:rounded-xl p-4 lg:w-2xl w-full lg:fixed lg:left-1/2 lg:top-0 lg:-translate-x-1/2 lg:translate-y-4 bg-foreground/5 z-50",
         className,
       )}
     >
