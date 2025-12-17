@@ -7,6 +7,8 @@ import Logo from "./logo";
 import ThemeToggler from "./themeToggler";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
+import { Bookmark } from "lucide-react";
 
 // Creating and exporting Header component as default
 export default function Header({ className }: HeaderProps): JSX.Element {
@@ -19,10 +21,17 @@ export default function Header({ className }: HeaderProps): JSX.Element {
       )}
     >
       <Logo className="shrink-0" />
-      <div className="flex items-center justify-between gap-3">
-        <Button asChild size={"lg"} variant={"ghost"}>
-          <Link href="/app">Get Started</Link>
-        </Button>
+      <div className="flex items-center justify-between gap-2">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button asChild size={"icon-lg"} variant={"ghost"}>
+              <Link href="/app">
+                <Bookmark />
+              </Link>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Get started</TooltipContent>
+        </Tooltip>
         <ThemeToggler />
       </div>
     </header>

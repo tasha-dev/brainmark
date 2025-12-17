@@ -11,7 +11,7 @@ export default function Footer({ className }: FooterProps): JSX.Element {
   return (
     <footer
       className={cn(
-        "border border-foreground/10 p-4 w-full bg-foreground/5",
+        "border border-foreground/10 p-4 w-full bg-foreground/5 mt-10",
         className,
       )}
     >
