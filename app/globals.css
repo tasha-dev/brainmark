@@ -1,9 +1,10 @@
 /* Codes by mahdi tasha */
-/* Importing tailwindcss */
+/* Importing part */
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is([data-theme="dark"]));
+/* Shad cn styles */
+@custom-variant dark (&:is([data-theme="dark"] *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -116,11 +117,7 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
+  button {
+    @apply cursor-pointer;
   }
 }
