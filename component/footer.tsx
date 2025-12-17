@@ -15,7 +15,7 @@ export default function Footer({ className }: FooterProps): JSX.Element {
         className,
       )}
     >
-      <div className="mx-auto max-w-4xl flex items-center justify-between gap-3 lg:flex-row flex-col">
+      <div className="mx-auto max-w-3xl flex items-center justify-between gap-3 lg:flex-row flex-col">
         <Logo className="shrink-0" />
         <p className="font-normal text-sm text-right truncate">
           © 2025 Mahdi Tasha. Built for curious minds.
