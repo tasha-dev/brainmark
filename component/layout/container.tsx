@@ -13,9 +13,11 @@ export default function Container({
 }: ContainerProps): JSX.Element {
   // Returning JSX
   return (
-    <div className={cn("max-w-3xl min-h-dvh mx-auto p-4", className)}>
-      {hasHeader && <Header className="mb-5" />}
-      <main>{children}</main>
-    </div>
+    <>
+      {hasHeader && <Header />}
+      <div className={cn("max-w-3xl min-h-dvh mx-auto p-4", className)}>
+        <main>{children}</main>
+      </div>
+    </>
   );
 }

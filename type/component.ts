@@ -20,3 +20,7 @@ export interface LogoProps {
 export interface HeaderProps {
   className?: string;
 }
+
+export interface BeamBgProps {
+  className?: string;
+}

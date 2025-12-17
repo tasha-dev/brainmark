@@ -13,7 +13,10 @@ export default function Header({ className }: HeaderProps): JSX.Element {
   // Returning JSX
   return (
     <header
-      className={cn("flex items-center justify-between gap-3", className)}
+      className={cn(
+        "flex items-center justify-between gap-3 backdrop-blur-2xl border border-foreground/10 lg:rounded-xl p-4 lg:w-2xl w-full lg:fixed lg:left-1/2 lg:top-0 lg:-translate-x-1/2 lg:translate-y-4 bg-foreground/5",
+        className,
+      )}
     >
       <Logo className="shrink-0" />
       <div className="flex items-center justify-between gap-3">
