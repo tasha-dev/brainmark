@@ -11,12 +11,16 @@ import { Brain, Code, Layers, Menu, X } from "lucide-react";
 import Link from "next/link";
 import AddBrainMark from "./dialog/addBrainMark";
 import ThemeToggler from "./themeToggler";
+import { useRouter } from "next/navigation";
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
   onOpenChange,
   open = false,
 }: SideBarProps): JSX.Element {
+  // Defining hooks
+  const router = useRouter();
+
   // Returning JSX
   return (
     <div
@@ -55,7 +59,10 @@ export default function SideBar({
             className="flex items-center justify-between gap-3 w-full"
             variant="outline"
             size="lg"
-            onClick={() => onOpenChange?.(false)}
+            onClick={() => {
+              router.push("/dashboard");
+              onOpenChange?.(false);
+            }}
           >
             <Brain className="shrink-0 size-4 text-rose-500" />
             <span className="text-xs font-normal text-left truncate block flex-1">

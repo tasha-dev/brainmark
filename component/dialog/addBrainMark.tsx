@@ -40,7 +40,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { BookMarkType } from "@/type/general";
+import { BookMarkType, TagsType } from "@/type/general";
 import { sleep } from "@/lib/util";
 
 // Defining form type
@@ -51,7 +51,7 @@ export default function AddBrainMark(): JSX.Element {
   // Defining hooks
   const [opened, setOpened] = useState<boolean>(false);
   const [formTags, setFormTags] = useState<string[]>([]);
-  const [tags] = useLocalStorageState<string[]>("tags");
+  const [tags] = useLocalStorageState<TagsType[]>("tags");
   const [bookmarks, setBookmarks] =
     useLocalStorageState<BookMarkType[]>("bookmarks");
 
@@ -64,14 +64,19 @@ export default function AddBrainMark(): JSX.Element {
 
   // Defining a function to handle submit event
   const submitHandler: SubmitHandler<formType> = async (data) => {
-    const bookmarksToUse = !bookmarks ? [] : [...bookmarks];
+    const bookmarksToUse: BookMarkType[] = !bookmarks ? [] : [...bookmarks];
+    const tagsToUse = tags ? [...tags] : [];
+
     const addedItemToCopy: BookMarkType[] = [
       ...bookmarksToUse,
       {
+        id: bookmarksToUse.length + 1,
         url: data.url,
         why: data.reason,
-        tags: formTags,
         createdAt: new Date().toISOString(),
+        tags: formTags
+          .map((formTag) => tagsToUse.find((tag) => tag.label === formTag))
+          .filter((tag): tag is TagsType => Boolean(tag)), // remove undefined
       },
     ];
 
@@ -169,8 +174,13 @@ export default function AddBrainMark(): JSX.Element {
                   <SelectContent>
                     <SelectGroup>
                       {tagsToRender.map((item, index) => (
-                        <SelectItem key={index} value={item}>
-                          {item}
+                        <SelectItem
+                          key={index}
+                          value={item.label}
+                          style={{ color: item.color }}
+                          className="hover:!bg-current/5"
+                        >
+                          {item.label}
                         </SelectItem>
                       ))}
                     </SelectGroup>
