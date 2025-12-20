@@ -38,3 +38,9 @@ export interface SideBarProps {
   open?: boolean;
   onOpenChange?: (val: boolean) => void;
 }
+
+export interface ThemeTogglerProps {
+  className?: string;
+  tooltipSide?: "top" | "right" | "bottom" | "left";
+  buttonVariant?: "outline" | "ghost" | "secondary";
+}

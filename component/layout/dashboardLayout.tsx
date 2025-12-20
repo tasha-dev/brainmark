@@ -8,6 +8,7 @@ import { JSX, useState } from "react";
 import SideBar from "../sidebar";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
+import ThemeToggler from "../themeToggler";
 
 // Creating and exporting DashboardLayout component as default
 export default function DashboardLayout({
@@ -21,14 +22,21 @@ export default function DashboardLayout({
     <div className="flex items-center justify-between gap-0">
       <SideBar open={sideBarOpened} onOpenChange={setSideBarOpened} />
       <div className="p-4 transition-all duration-500 mx-auto h-dvh w-3xl">
-        <Button
-          className="lg:hidden flex mb-4"
-          size={"icon-lg"}
-          variant={"secondary"}
-          onClick={() => setSideBarOpened((prev) => !prev)}
-        >
-          <Menu />
-        </Button>
+        <div className="flex items-center justify-start gap-4 mb-4">
+          <Button
+            className="lg:hidden flex"
+            size={"icon-lg"}
+            variant={"secondary"}
+            onClick={() => setSideBarOpened((prev) => !prev)}
+          >
+            <Menu />
+          </Button>
+          <ThemeToggler
+            tooltipSide="bottom"
+            buttonVariant="secondary"
+            className="lg:hidden flex"
+          />
+        </div>
         {children}
       </div>
     </div>

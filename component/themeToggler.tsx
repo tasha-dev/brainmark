@@ -12,9 +12,14 @@ import {
 import { Button } from "@/component/ui/button";
 import { SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { ThemeTogglerProps } from "@/type/component";
 
 // Creating and exporting ThemeToggler component as default
-export default function ThemeToggler(): JSX.Element {
+export default function ThemeToggler({
+  className,
+  tooltipSide,
+  buttonVariant = "ghost",
+}: ThemeTogglerProps): JSX.Element {
   // Defining hooks
   const { setTheme } = useTheme();
 
@@ -23,8 +28,9 @@ export default function ThemeToggler(): JSX.Element {
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
-          variant="ghost"
+          variant={buttonVariant}
           size={"icon-lg"}
+          className={className}
           onClick={() => {
             setTheme((prev) => (prev === "dark" ? "light" : "dark"));
           }}
@@ -32,7 +38,7 @@ export default function ThemeToggler(): JSX.Element {
           <SunMoon />
         </Button>
       </TooltipTrigger>
-      <TooltipContent>Toggle theme</TooltipContent>
+      <TooltipContent side={tooltipSide}>Toggle theme</TooltipContent>
     </Tooltip>
   );
 }

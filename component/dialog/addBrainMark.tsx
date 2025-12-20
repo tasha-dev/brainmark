@@ -74,6 +74,7 @@ export default function AddBrainMark(): JSX.Element {
         url: data.url,
         why: data.reason,
         tags: formTags,
+        createdAt: new Date().toISOString(),
       },
     ];
 

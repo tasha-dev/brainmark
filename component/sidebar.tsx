@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import { Brain, Calendar, Code, Layers, Menu, X } from "lucide-react";
 import Link from "next/link";
 import AddBrainMark from "./dialog/addBrainMark";
+import ThemeToggler from "./themeToggler";
 
 // Defining data of side bar to render
 const data: {
@@ -57,6 +58,14 @@ export default function SideBar({
           <Menu />
         </Button>
       )}
+      <ThemeToggler
+        tooltipSide="right"
+        buttonVariant="secondary"
+        className={cn(
+          "absolute left-full translate-x-4 z-50 lg:flex hidden",
+          onOpenChange ? "top-18" : "top-4",
+        )}
+      />
       <div className="overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col">
         <div className="h-full w-full p-4 space-y-4 overflow-auto">
           <AddBrainMark />
