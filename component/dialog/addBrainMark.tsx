@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddBrainMarkFormSchema as formSchema } from "@/lib/formSchema";
 import z from "zod";
@@ -186,7 +186,17 @@ export default function AddBrainMark(): JSX.Element {
           <DialogClose asChild>
             <Button variant={"ghost"}>Cancle</Button>
           </DialogClose>
-          <Button onClick={form.handleSubmit(submitHandler)}>Save Mark</Button>
+          <Button
+            disabled={form.formState.isSubmitting}
+            onClick={form.handleSubmit(submitHandler)}
+          >
+            {form.formState.isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              <Plus />
+            )}
+            Save Mark
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
