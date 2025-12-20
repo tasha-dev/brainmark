@@ -5,35 +5,12 @@
 // Importing part
 import { cn } from "@/lib/util";
 import { SideBarProps } from "@/type/component";
-import { JSX, ReactNode } from "react";
+import { JSX } from "react";
 import { Button } from "./ui/button";
 import { Brain, Calendar, Code, Layers, Menu, X } from "lucide-react";
 import Link from "next/link";
 import AddBrainMark from "./dialog/addBrainMark";
 import ThemeToggler from "./themeToggler";
-
-// Defining data of side bar to render
-const data: {
-  icon: ReactNode;
-  label: string;
-  href: string;
-}[] = [
-  {
-    href: "/dashboard",
-    icon: <Brain className="shrink-0 size-4 text-rose-500" />,
-    label: "All Brainmark's",
-  },
-  {
-    href: "/dashboard/today",
-    icon: <Calendar className="shrink-0 size-4 text-blue-500" />,
-    label: "Today Brainmark's",
-  },
-  {
-    href: "/dashboard/tags",
-    icon: <Layers className="shrink-0 size-4 text-fuchsia-500" />,
-    label: "Your tags",
-  },
-];
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
@@ -69,22 +46,30 @@ export default function SideBar({
       <div className="overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col">
         <div className="h-full w-full p-4 space-y-4 overflow-auto">
           <AddBrainMark />
-          {data.map((item, index) => (
-            <Button
-              asChild
-              key={index}
-              className="flex items-center justify-between gap-3 w-full"
-              variant="outline"
-              size="lg"
-            >
-              <Link href={item.href}>
-                {item.icon}
-                <span className="text-xs font-normal text-left truncate block flex-1">
-                  {item.label}
-                </span>
-              </Link>
-            </Button>
-          ))}
+          <Button
+            className="flex items-center justify-between gap-3 w-full"
+            variant="outline"
+            size="lg"
+            onClick={() => onOpenChange?.(false)}
+          >
+            <Brain className="shrink-0 size-4 text-rose-500" />
+            <span className="text-xs font-normal text-left truncate block flex-1">
+              {"All Brainmark's"}
+            </span>
+          </Button>
+          <Button
+            className="flex items-center justify-between gap-3 w-full"
+            variant="outline"
+            size="lg"
+            asChild
+          >
+            <Link href="/dashboard/tags">
+              <Layers className="shrink-0 size-4 text-sky-500" />
+              <span className="text-xs font-normal text-left truncate block flex-1">
+                Your tags
+              </span>
+            </Link>
+          </Button>
         </div>
         <div className="shrink-0 w-full p-4 border-t border-t-foreground/10 space-y-4">
           <Button variant={"secondary"} size={"lg"} className="w-full" asChild>

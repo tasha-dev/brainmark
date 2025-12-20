@@ -44,3 +44,9 @@ export interface ThemeTogglerProps {
   tooltipSide?: "top" | "right" | "bottom" | "left";
   buttonVariant?: "outline" | "ghost" | "secondary";
 }
+
+export interface EditTagProps {
+  label: string;
+  color: string;
+  id: number;
+}

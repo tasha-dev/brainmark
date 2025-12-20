@@ -5,4 +5,12 @@ export interface BookMarkType {
   why: string;
   tags?: string[];
   createdAt: string;
+  id: number;
+}
+
+export interface TagsType {
+  createdAt: string;
+  color: string;
+  label: string;
+  id: number;
 }

@@ -15,9 +15,9 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, Tag } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AddBrainMarkFormSchema as formSchema } from "@/lib/formSchema";
+import { AddTagsFormSchema as formSchema } from "@/lib/formSchema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -29,57 +29,41 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { toast } from "sonner";
 import useLocalStorageState from "use-local-storage-state";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { BookMarkType } from "@/type/general";
+import { TagsType } from "@/type/general";
 import { sleep } from "@/lib/util";
 
 // Defining form type
 type formType = z.infer<typeof formSchema>;
 
-// Creating and exporting AddBrainMark component as default
-export default function AddBrainMark(): JSX.Element {
+// Creating and exporting AddTag component as default
+export default function AddTag(): JSX.Element {
   // Defining hooks
   const [opened, setOpened] = useState<boolean>(false);
-  const [formTags, setFormTags] = useState<string[]>([]);
-  const [tags] = useLocalStorageState<string[]>("tags");
-  const [bookmarks, setBookmarks] =
-    useLocalStorageState<BookMarkType[]>("bookmarks");
-
+  const [tags, setTags] = useLocalStorageState<TagsType[]>("tags");
   const form = useForm<formType>({
     resolver: zodResolver(formSchema),
   });
 
-  // Defining variables
-  const tagsToRender = tags ? [...tags] : [];
-
   // Defining a function to handle submit event
   const submitHandler: SubmitHandler<formType> = async (data) => {
-    const bookmarksToUse = !bookmarks ? [] : [...bookmarks];
-    const addedItemToCopy: BookMarkType[] = [
-      ...bookmarksToUse,
+    const tagsToUse = tags ? [...tags] : [];
+    const tagsToSet: TagsType[] = [
+      ...tagsToUse,
       {
-        url: data.url,
-        why: data.reason,
-        tags: formTags,
+        color: data.color,
         createdAt: new Date().toISOString(),
+        id: tagsToUse.length + 1,
+        label: data.label,
       },
     ];
 
     await sleep(3000);
-    setBookmarks(addedItemToCopy);
+    setTags(tagsToSet);
     setOpened(false);
     toast.success(
-      "Mark saved! Your reason will resurface when you need it most. 🧠",
+      "Tag created! Start applying it to your marks for better organization. 🌈",
     );
   };
 
@@ -87,8 +71,8 @@ export default function AddBrainMark(): JSX.Element {
   useEffect(() => {
     if (!opened) {
       form.reset({
-        reason: "",
-        url: "",
+        color: "",
+        label: "",
       });
     }
   }, [opened]);
@@ -98,22 +82,22 @@ export default function AddBrainMark(): JSX.Element {
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
         <Button
-          className="flex items-center justify-between gap-3 w-full"
+          className="flex items-center justify-between gap-3 w-fit shrink-0"
           variant="outline"
           size="lg"
         >
-          <Plus className="text-emerald-500 shrink-0" />
+          <Tag className="text-cyan-500 shrink-0" />
           <span className="text-xs font-normal text-left truncate block flex-1">
-            Add new brainmark
+            Create a New Tag
           </span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add a New Brainmark</DialogTitle>
+          <DialogTitle>Create a New Tag</DialogTitle>
           <DialogDescription>
             {
-              "This modal lets you add a new Brainmark. Paste a URL—we'll fetch the title and preview automatically. Most importantly, write one clear sentence explaining why this link matters to you (required)."
+              "Create a new tag to organize your brainmarks. Give it a meaningful name—like 'react' or 'inspiration'—and optionally choose a color for quick visual recognition"
             }
           </DialogDescription>
         </DialogHeader>
@@ -125,16 +109,12 @@ export default function AddBrainMark(): JSX.Element {
           >
             <FormField
               control={form.control}
-              name="url"
+              name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link URL</FormLabel>
+                  <FormLabel>Tag Name</FormLabel>
                   <FormControl>
-                    <Input
-                      type="url"
-                      placeholder="https://example.com/"
-                      {...field}
-                    />
+                    <Input type="text" placeholder="Games to try" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,42 +122,17 @@ export default function AddBrainMark(): JSX.Element {
             />
             <FormField
               control={form.control}
-              name="reason"
+              name="color"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Why are you saving this?</FormLabel>
+                  <FormLabel>Tag color</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Great reference for designing calm UIs"
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Input placeholder="#fffff" type="color" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {tagsToRender.length !== 0 && (
-              <div className="w-full">
-                <FormLabel className="mb-2">Tags (optional)</FormLabel>
-                <Select
-                  onValueChange={(val) => setFormTags((prev) => [...prev, val])}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {tagsToRender.map((item, index) => (
-                        <SelectItem key={index} value={item}>
-                          {item}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
           </form>
         </Form>
         <DialogFooter>
@@ -193,7 +148,7 @@ export default function AddBrainMark(): JSX.Element {
             ) : (
               <Plus />
             )}
-            Save Mark
+            Create Tag
           </Button>
         </DialogFooter>
       </DialogContent>

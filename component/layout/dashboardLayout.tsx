@@ -9,6 +9,8 @@ import SideBar from "../sidebar";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import ThemeToggler from "../themeToggler";
+import useLocalStorageState from "use-local-storage-state";
+import { BookMarkType, TagsType } from "@/type/general";
 
 // Creating and exporting DashboardLayout component as default
 export default function DashboardLayout({
@@ -16,6 +18,13 @@ export default function DashboardLayout({
 }: AppLayoutProps): JSX.Element {
   // Defining hooks
   const [sideBarOpened, setSideBarOpened] = useState<boolean>(false);
+  const bookmarks = useLocalStorageState<BookMarkType[]>("bookmarks", {
+    defaultValue: [],
+  });
+
+  const tags = useLocalStorageState<TagsType[]>("tags", {
+    defaultValue: [],
+  });
 
   // Returning JSX
   return (

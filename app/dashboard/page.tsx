@@ -6,8 +6,8 @@
 import DashboardLayout from "@/component/layout/dashboardLayout";
 import { JSX } from "react";
 
-// Creating and exporting App page as default
-export default function AppPage(): JSX.Element {
+// Creating and exporting Dashboard page as default
+export default function DashboardPage(): JSX.Element {
   // Returning JSX
   return (
     <DashboardLayout>
