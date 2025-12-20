@@ -82,7 +82,7 @@ export default function AddTag(): JSX.Element {
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
         <Button
-          className="flex items-center justify-between gap-3 w-fit shrink-0"
+          className="flex items-center justify-between gap-3 w-full"
           variant="outline"
           size="lg"
         >

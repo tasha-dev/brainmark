@@ -40,7 +40,7 @@ export default function DeleteTag({ id, label }: DeleteTagProps): JSX.Element {
 
     const tagsToSet = tagsToUse.filter((item) => item.id !== id);
     const bookmarksToSet = bookmarksToUse.map((bookmark) => {
-      const filteredTags = bookmark.tags?.filter((tag) => tag !== label);
+      const filteredTags = bookmark.tags?.filter((tag) => tag.label !== label);
 
       return {
         ...bookmark,
@@ -66,8 +66,9 @@ export default function DeleteTag({ id, label }: DeleteTagProps): JSX.Element {
   return (
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
-        <Button variant="destructive" size="icon-lg">
+        <Button variant="destructive" className="text-foreground w-full">
           <Trash className="text-foreground" />
+          Delete this Tag
         </Button>
       </DialogTrigger>
       <DialogContent>

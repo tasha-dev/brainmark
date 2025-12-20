@@ -6,7 +6,7 @@
 import { JSX } from "react";
 import { cn, copyToClipboard } from "@/lib/util";
 import { BrainMarkProps } from "@/type/component";
-import { Copy, Delete, Eye, Pen, Tag, Trash } from "lucide-react";
+import { Copy, Eye, Pen, Tag, Trash } from "lucide-react";
 import moment from "moment";
 import { Badge } from "@/component/ui/badge";
 import {

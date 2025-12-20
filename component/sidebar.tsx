@@ -12,6 +12,7 @@ import Link from "next/link";
 import AddBrainMark from "./dialog/addBrainMark";
 import ThemeToggler from "./themeToggler";
 import { useRouter } from "next/navigation";
+import AddTag from "./dialog/addTag";
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
@@ -54,6 +55,7 @@ export default function SideBar({
         )}
       >
         <div className="h-full w-full p-4 space-y-4 overflow-auto">
+          <AddTag />
           <AddBrainMark />
           <Button
             className="flex items-center justify-between gap-3 w-full"

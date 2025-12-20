@@ -81,8 +81,9 @@ export default function EditTag({
   return (
     <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon-lg">
+        <Button variant="outline" className="w-full text-foreground">
           <Pen className="text-foreground" />
+          Edit this tag
         </Button>
       </DialogTrigger>
       <DialogContent>
