@@ -28,6 +28,7 @@ import {
   ContextMenuTrigger,
 } from "./ui/context-menu";
 import DeleteBrainMark from "./dialog/deleteBrainMark";
+import EditBrainMark from "./dialog/editBrainMark";
 
 // Defining global scoped variables
 const apiKey: string = process.env.NEXT_PUBLIC_FLASH_API_KEY || "";
@@ -39,6 +40,7 @@ export default function BrainMark({
 }: BrainMarkProps): JSX.Element {
   // Defining hooks
   const [deleteDialogOpened, setDeleteDialogOpened] = useState<boolean>(false);
+  const [editDialogOpened, setEditDialogOpened] = useState<boolean>(false);
   const imgData = useGet(
     `https://api.apiflash.com/v1/urltoimage?access_key=${apiKey}&wait_until=page_loaded&url=${data.url}`,
   );
@@ -50,6 +52,16 @@ export default function BrainMark({
         id={data.id}
         onOpenChange={setDeleteDialogOpened}
         open={deleteDialogOpened}
+      />
+      <EditBrainMark
+        onOpenChange={setEditDialogOpened}
+        open={editDialogOpened}
+        data={{
+          id: data.id,
+          tags: data.tags ? data.tags[0].label : "",
+          url: data.url,
+          why: data.why,
+        }}
       />
       <ContextMenu>
         <ContextMenuTrigger asChild>
@@ -109,7 +121,10 @@ export default function BrainMark({
             </Link>
           </ContextMenuItem>
           <ContextMenuSeparator />
-          <ContextMenuItem className="cursor-pointer">
+          <ContextMenuItem
+            className="cursor-pointer"
+            onClick={() => setEditDialogOpened(true)}
+          >
             <Pen />
             Edit the bookmark
           </ContextMenuItem>

@@ -72,3 +72,14 @@ export interface DeleteBrainMarkProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
+
+export interface EditBrainMarkProps {
+  data: {
+    id: number;
+    url: string;
+    why: string;
+    tags: string;
+  };
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
