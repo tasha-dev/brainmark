@@ -46,7 +46,7 @@ export default function DashboardLayout({
             className="lg:hidden flex"
           />
         </div>
-        {children}
+        <div className="pb-4">{children}</div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 // Codes by mahdi tasha
 // Importing part
 import { ReactNode } from "react";
-import { BookMarkType } from "./general";
+import { BookMarkType, TagsType } from "./general";
 
 // Creating and exporting type and interfaces for props of component
 export interface RootLayoutProps {
@@ -60,4 +60,9 @@ export interface DeleteTagProps {
 export interface BrainMarkProps {
   className?: string;
   data: BookMarkType;
+}
+
+export interface TagProps {
+  className?: string;
+  data: TagsType;
 }
