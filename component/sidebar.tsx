@@ -9,6 +9,7 @@ import { JSX, ReactNode } from "react";
 import { Button } from "./ui/button";
 import { Brain, Calendar, Code, Layers, Menu, X } from "lucide-react";
 import Link from "next/link";
+import AddBrainMark from "./dialog/addBrainMark";
 
 // Defining data of side bar to render
 const data: {
@@ -27,9 +28,9 @@ const data: {
     label: "Today Brainmark's",
   },
   {
-    href: "/dashboard/categories",
+    href: "/dashboard/tags",
     icon: <Layers className="shrink-0 size-4 text-fuchsia-500" />,
-    label: "Your Categories",
+    label: "Your tags",
   },
 ];
 
@@ -58,6 +59,7 @@ export default function SideBar({
       )}
       <div className="overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col">
         <div className="h-full w-full p-4 space-y-4 overflow-auto">
+          <AddBrainMark />
           {data.map((item, index) => (
             <Button
               asChild
