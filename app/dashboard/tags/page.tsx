@@ -4,6 +4,7 @@
 
 // Importing part
 import AddTag from "@/component/dialog/addTag";
+import DeleteTag from "@/component/dialog/deleteTag";
 import EditTag from "@/component/dialog/editTag";
 import DashboardLayout from "@/component/layout/dashboardLayout";
 import { TagsType } from "@/type/general";
@@ -29,9 +30,9 @@ export default function TagsPage(): JSX.Element {
         <AddTag />
       </div>
       {tagsToRender.length === 0 ? (
-        <h3 className="text-2xl font-medium block mb-5 lg:leading-12 leading-8 text-center">
-          No tags yet—your knowledge network is waiting to grow
-        </h3>
+        <p className="text-2xl font-medium block leading-9 text-center">
+          No tags yet <br /> your knowledge network is waiting to grow
+        </p>
       ) : (
         <div className="space-y-4">
           {tagsToRender.map((item, index) => (
@@ -50,6 +51,7 @@ export default function TagsPage(): JSX.Element {
               </div>
               <div className="flex items-center justify-between gap-3 shrink-0">
                 <EditTag color={item.color} id={item.id} label={item.label} />
+                <DeleteTag id={item.id} label={item.label} />
               </div>
             </div>
           ))}

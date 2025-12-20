@@ -50,3 +50,8 @@ export interface EditTagProps {
   color: string;
   id: number;
 }
+
+export interface DeleteTagProps {
+  id: number;
+  label: string;
+}

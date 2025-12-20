@@ -3,7 +3,7 @@
 "use client";
 
 // Importing part
-import { JSX, useEffect, useState } from "react";
+import { JSX, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Loader2, Pen, Plus, Tag } from "lucide-react";
+import { Loader2, Pen, Plus } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddTagsFormSchema as formSchema } from "@/lib/formSchema";
 import z from "zod";

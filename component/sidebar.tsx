@@ -7,7 +7,7 @@ import { cn } from "@/lib/util";
 import { SideBarProps } from "@/type/component";
 import { JSX } from "react";
 import { Button } from "./ui/button";
-import { Brain, Calendar, Code, Layers, Menu, X } from "lucide-react";
+import { Brain, Code, Layers, Menu, X } from "lucide-react";
 import Link from "next/link";
 import AddBrainMark from "./dialog/addBrainMark";
 import ThemeToggler from "./themeToggler";
@@ -43,7 +43,12 @@ export default function SideBar({
           onOpenChange ? "top-18" : "top-4",
         )}
       />
-      <div className="overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col">
+      <div
+        className={cn(
+          "overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col",
+          open ? "visible" : "invisible",
+        )}
+      >
         <div className="h-full w-full p-4 space-y-4 overflow-auto">
           <AddBrainMark />
           <Button
