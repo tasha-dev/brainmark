@@ -66,3 +66,9 @@ export interface TagProps {
   className?: string;
   data: TagsType;
 }
+
+export interface DeleteBrainMarkProps {
+  id: number;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}

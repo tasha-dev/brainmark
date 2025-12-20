@@ -70,7 +70,9 @@ export default function AddBrainMark(): JSX.Element {
     const addedItemToCopy: BookMarkType[] = [
       ...bookmarksToUse,
       {
-        id: bookmarksToUse.length + 1,
+        id: bookmarksToUse[bookmarksToUse.length - 1]
+          ? bookmarksToUse[bookmarksToUse.length - 1].id + 1
+          : 1,
         url: data.url,
         why: data.reason,
         createdAt: new Date().toISOString(),

@@ -54,8 +54,10 @@ export default function AddTag(): JSX.Element {
       {
         color: data.color,
         createdAt: new Date().toISOString(),
-        id: tagsToUse.length + 1,
         label: data.label,
+        id: tagsToUse[tagsToUse.length - 1]
+          ? tagsToUse[tagsToUse.length - 1].id + 1
+          : 1,
       },
     ];
 
