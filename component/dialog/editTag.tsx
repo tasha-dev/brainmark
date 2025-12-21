@@ -31,7 +31,7 @@ import {
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 import useLocalStorageState from "use-local-storage-state";
-import { TagsType } from "@/type/general";
+import { BookMarkType, TagsType } from "@/type/general";
 import { sleep } from "@/lib/util";
 import { EditTagProps } from "@/type/component";
 
@@ -47,6 +47,9 @@ export default function EditTag({
   // Defining hooks
   const [opened, setOpened] = useState<boolean>(false);
   const [tags, setTags] = useLocalStorageState<TagsType[]>("tags");
+  const [bookmarks, setBookmarks] =
+    useLocalStorageState<BookMarkType[]>("bookmarks");
+
   const form = useForm<formType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +61,22 @@ export default function EditTag({
   // Defining a function to handle submit event
   const submitHandler: SubmitHandler<formType> = async (data) => {
     const tagsToUse: TagsType[] = tags ? [...tags] : [];
+    const bookmarksToUse: BookMarkType[] = bookmarks ? [...bookmarks] : [];
+
+    const bookmarkToSet = bookmarksToUse.map((item) =>
+      item.tag && item.tag.id === id
+        ? {
+            ...item,
+            tag: {
+              id: item.id,
+              label: data.label,
+              color: data.color,
+              createdAt: new Date().toISOString(),
+            },
+          }
+        : item,
+    );
+
     const tagsToSet = tagsToUse.map((item) =>
       item.id === id
         ? {
@@ -70,7 +89,10 @@ export default function EditTag({
     );
 
     await sleep(3000);
+
     setTags(tagsToSet);
+    setBookmarks(bookmarkToSet);
+
     setOpened(false);
     toast.success(
       "Tag updated! Your knowledge connections just got a little sharper. 🧠",
