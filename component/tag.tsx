@@ -23,6 +23,7 @@ export default function Tag({ className, data }: TagProps): JSX.Element {
   return (
     <Card
       className={className}
+      id={`tag-${data.label}-${data.id}`}
       style={{
         color: data.color,
       }}
@@ -38,7 +39,7 @@ export default function Tag({ className, data }: TagProps): JSX.Element {
       </CardHeader>
       <CardFooter className="block space-y-3">
         <EditTag color={data.color} id={data.id} label={data.label} />
-        <DeleteTag id={data.id} label={data.label} />
+        <DeleteTag id={data.id} />
       </CardFooter>
     </Card>
   );

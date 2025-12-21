@@ -13,6 +13,7 @@ import AddBrainMark from "./dialog/addBrainMark";
 import ThemeToggler from "./themeToggler";
 import { useRouter } from "next/navigation";
 import AddTag from "./dialog/addTag";
+import Search from "./search";
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
@@ -84,6 +85,7 @@ export default function SideBar({
               </span>
             </Link>
           </Button>
+          <Search />
         </div>
         <div className="shrink-0 w-full p-4 border-t border-t-foreground/10 space-y-4">
           <Button variant={"secondary"} size={"lg"} className="w-full" asChild>

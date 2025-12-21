@@ -66,13 +66,13 @@ export default function AddBrainMark(): JSX.Element {
   const submitHandler: SubmitHandler<formType> = async (data) => {
     const bookmarksToUse: BookMarkType[] = bookmarks ? [...bookmarks] : [];
     const tagsToUse = tags ? [...tags] : [];
-    const bookmarkLastItemId = bookmarksToUse[bookmarksToUse.length - 1].id;
+    const bookmarkLastItemId = bookmarksToUse[bookmarksToUse.length - 1];
     const tagObj = tagsToUse.find((item) => item.id === Number(formTagId));
 
     const bookmarksToSet: BookMarkType[] = [
       ...bookmarksToUse,
       {
-        id: bookmarkLastItemId ? bookmarkLastItemId + 1 : 0,
+        id: bookmarksToUse.length !== 0 ? bookmarkLastItemId.id + 1 : 0,
         createdAt: new Date().toISOString(),
         url: data.url,
         why: data.reason,

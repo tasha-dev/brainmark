@@ -70,6 +70,7 @@ export default function BrainMark({
           <Card
             className={cn("pt-0 overflow-hidden cursor-pointer", className)}
             onClick={() => window.open(data.url, "_blank")}
+            id={`brainmark-${data.id}`}
           >
             {imgData.loading ? (
               <Skeleton className="h-[150px] bg-foreground/10 rounded-none" />

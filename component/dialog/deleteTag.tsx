@@ -39,7 +39,7 @@ export default function DeleteTag({ id }: DeleteTagProps): JSX.Element {
     const bookmarksToUse = bookmarks ? [...bookmarks] : [];
 
     const tagsToSet = tagsToUse.filter((item) => item.id !== id);
-    const bookmarksToSet = bookmarksToUse.filter((item) => item.tag?.id === id);
+    const bookmarksToSet = bookmarksToUse.filter((item) => item.tag?.id !== id);
 
     await sleep(3000);
 
