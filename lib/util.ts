@@ -75,3 +75,39 @@ export function downloadBookmarks(bookmarks: BookMarkType[]) {
 
   URL.revokeObjectURL(url);
 }
+
+export function importBookmarks(
+  file: File,
+  firstId: number,
+): Promise<BookMarkType[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const content = reader.result as string;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(content, "text/html");
+
+      const links = Array.from(doc.querySelectorAll("a"));
+      const bookmarks: BookMarkType[] = links.map((link, index) => ({
+        url: link.getAttribute("href") || "",
+        why: link.textContent || "",
+        createdAt:
+          (link.getAttribute("add_date")
+            ? new Date(
+                parseInt(link.getAttribute("add_date") || "0") * 1000,
+              ).toISOString()
+            : new Date().toISOString()) || "",
+        id: firstId + (index + 1),
+      }));
+
+      resolve(bookmarks);
+    };
+
+    reader.onerror = () => {
+      reject(new Error("Failed to read file"));
+    };
+
+    reader.readAsText(file);
+  });
+}

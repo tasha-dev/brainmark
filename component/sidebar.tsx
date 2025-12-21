@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import AddTag from "./dialog/addTag";
 import Search from "./search";
 import DownloadBookmarks from "./downloadBookmarks";
+import ImportBookmarks from "./importBookmarks";
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
@@ -87,6 +88,7 @@ export default function SideBar({
             </Link>
           </Button>
           <DownloadBookmarks />
+          <ImportBookmarks />
         </div>
         <div className="shrink-0 w-full p-4 border-t border-t-foreground/10 space-y-4">
           <Button variant={"secondary"} size={"lg"} className="w-full" asChild>
