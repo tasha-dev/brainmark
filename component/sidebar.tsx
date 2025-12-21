@@ -14,6 +14,7 @@ import ThemeToggler from "./themeToggler";
 import { useRouter } from "next/navigation";
 import AddTag from "./dialog/addTag";
 import Search from "./search";
+import DownloadBookmarks from "./downloadBookmarks";
 
 // Creating and exporting SideBar component as default
 export default function SideBar({
@@ -56,22 +57,22 @@ export default function SideBar({
         )}
       >
         <div className="h-full w-full p-4 space-y-4 overflow-auto scrollbar-hide">
-          <AddTag />
-          <AddBrainMark />
           <Button
             className="flex items-center justify-between gap-3 w-full"
             variant="outline"
             size="lg"
-            onClick={() => {
-              router.push("/dashboard");
-              onOpenChange?.(false);
-            }}
+            asChild
           >
-            <Brain className="shrink-0 size-4 text-rose-500" />
-            <span className="text-xs font-normal text-left truncate block flex-1">
-              {"All Brainmark's"}
-            </span>
+            <Link href="/dashboard">
+              <Brain className="shrink-0 size-4 text-rose-500" />
+              <span className="text-xs font-normal text-left truncate block flex-1">
+                {"All Brainmark's"}
+              </span>
+            </Link>
           </Button>
+          <AddTag />
+          <AddBrainMark />
+          <Search />
           <Button
             className="flex items-center justify-between gap-3 w-full"
             variant="outline"
@@ -85,7 +86,7 @@ export default function SideBar({
               </span>
             </Link>
           </Button>
-          <Search />
+          <DownloadBookmarks />
         </div>
         <div className="shrink-0 w-full p-4 border-t border-t-foreground/10 space-y-4">
           <Button variant={"secondary"} size={"lg"} className="w-full" asChild>
