@@ -28,25 +28,27 @@ export default function DashboardLayout({
 
   // Returning JSX
   return (
-    <div className="flex items-center justify-between gap-0">
+    <div className="flex items-center justify-between gap-0 overflow-hidden scrollbar-hide">
       <SideBar open={sideBarOpened} onOpenChange={setSideBarOpened} />
-      <div className="p-4 transition-all duration-500 mx-auto h-dvh w-3xl">
-        <div className="flex items-center justify-start gap-4 mb-4">
-          <Button
-            className="lg:hidden flex"
-            size={"icon-lg"}
-            variant={"secondary"}
-            onClick={() => setSideBarOpened((prev) => !prev)}
-          >
-            <Menu />
-          </Button>
-          <ThemeToggler
-            tooltipSide="bottom"
-            buttonVariant="secondary"
-            className="lg:hidden flex"
-          />
+      <div className="transition-all duration-500 mx-auto h-dvh w-3xl">
+        <div className="p-4 h-dvh overflow-auto scrollbar-hide">
+          <div className="flex items-center justify-start gap-4 mb-4">
+            <Button
+              className="lg:hidden flex"
+              size={"icon-lg"}
+              variant={"secondary"}
+              onClick={() => setSideBarOpened((prev) => !prev)}
+            >
+              <Menu />
+            </Button>
+            <ThemeToggler
+              tooltipSide="bottom"
+              buttonVariant="secondary"
+              className="lg:hidden flex"
+            />
+          </div>
+          {children}
         </div>
-        <div className="pb-4">{children}</div>
       </div>
     </div>
   );

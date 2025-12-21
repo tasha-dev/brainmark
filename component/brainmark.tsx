@@ -6,7 +6,7 @@
 import { JSX, useState } from "react";
 import { cn, copyToClipboard } from "@/lib/util";
 import { BrainMarkProps } from "@/type/component";
-import { Copy, Eye, Pen, Tag, Trash } from "lucide-react";
+import { Copy, Edit, Eye, Pen, Tag, Trash } from "lucide-react";
 import moment from "moment";
 import { Badge } from "@/component/ui/badge";
 import {
@@ -29,6 +29,8 @@ import {
 } from "./ui/context-menu";
 import DeleteBrainMark from "./dialog/deleteBrainMark";
 import EditBrainMark from "./dialog/editBrainMark";
+import { Button } from "./ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 // Defining global scoped variables
 const apiKey: string = process.env.NEXT_PUBLIC_FLASH_API_KEY || "";
@@ -58,53 +60,126 @@ export default function BrainMark({
         open={editDialogOpened}
         data={{
           id: data.id,
-          tags: data.tags ? data.tags[0].label : "",
+          tag: data.tag?.id ? data.tag.id.toString() : undefined,
           url: data.url,
           why: data.why,
         }}
       />
       <ContextMenu>
         <ContextMenuTrigger asChild>
-          <Link href={data.url}>
-            <Card className={cn("pt-0 overflow-hidden", className)}>
-              {imgData.loading ? (
-                <Skeleton className="h-[150px] bg-foreground/10 rounded-none" />
-              ) : imgData.isError ? (
-                <div className="h-[150px] bg-destructive w-full" />
-              ) : (
+          <Card
+            className={cn("pt-0 overflow-hidden cursor-pointer", className)}
+            onClick={() => window.open(data.url, "_blank")}
+          >
+            {imgData.loading ? (
+              <Skeleton className="h-[150px] bg-foreground/10 rounded-none" />
+            ) : imgData.isError ? (
+              <div className="h-[150px] bg-background w-full p-4">
+                <div className="flex items-center justify-end gap-3">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size={"icon-lg"}
+                        variant="secondary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditDialogOpened(true);
+                        }}
+                      >
+                        <Edit />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      Edit the brainmark
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size={"icon-lg"}
+                        variant="destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeleteDialogOpened(true);
+                        }}
+                      >
+                        <Trash />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      Delete the brain mark
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
+            ) : (
+              <div className="h-[150px] bg-background w-full p-4 relative z-0">
                 <Image
                   alt={data.url}
                   src={imgData.data || ""}
                   width={500}
                   height={500}
-                  className="h-[150px] object-cover pointer-events-auto w-full bg-foreground"
+                  className="w-full h-full object-cover pointer-events-auto absolute top-0 left-0 z-10"
                 />
-              )}
-              <CardHeader>
-                <CardTitle className="truncate">{data.url}</CardTitle>
-                <CardDescription>{data.why}</CardDescription>
-                <span className="text-muted-foreground text-xs">
-                  {moment(data.createdAt).format("YYYY/MM/DD HH:MM")}
-                </span>
-              </CardHeader>
-              {data.tags && (
-                <CardFooter className="flex items-center justify-start gap-2 flex-wrap">
-                  {data.tags.map((item, index) => (
-                    <Badge
-                      key={index}
-                      className="bg-current/10 border border-current/15 text-current"
-                      style={{
-                        color: item.color,
-                      }}
-                    >
-                      <Tag />
-                      <span>{item.label}</span>
-                    </Badge>
-                  ))}
-                </CardFooter>
-              )}
-            </Card>
-          </Link>
+                <div className="flex items-center justify-end gap-3 relative z-20">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size={"icon-lg"}
+                        variant="secondary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditDialogOpened(true);
+                        }}
+                      >
+                        <Edit />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      Edit the brainmark
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size={"icon-lg"}
+                        variant="destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeleteDialogOpened(true);
+                        }}
+                      >
+                        <Trash />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      Delete the brain mark
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
+            )}
+            <CardHeader>
+              <CardTitle className="truncate">{data.url}</CardTitle>
+              <CardDescription>{data.why}</CardDescription>
+              <span className="text-muted-foreground text-xs">
+                {moment(data.createdAt).format("YYYY/MM/DD HH:MM")}
+              </span>
+            </CardHeader>
+            {data.tag && (
+              <CardFooter className="flex items-center justify-start gap-2 flex-wrap">
+                <Badge
+                  className="bg-current/10 border border-current/15 text-current"
+                  style={{
+                    color: data.tag.color,
+                  }}
+                >
+                  <Tag />
+                  <span>{data.tag.label}</span>
+                </Badge>
+              </CardFooter>
+            )}
+          </Card>
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem

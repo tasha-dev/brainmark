@@ -3,15 +3,7 @@
 "use client";
 
 // Importing part
-import { JSX, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { JSX, useEffect, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -23,7 +15,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Loader2, Pen, Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddBrainMarkFormSchema as formSchema } from "@/lib/formSchema";
 import z from "zod";
@@ -37,12 +29,20 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { toast } from "sonner";
+import useLocalStorageState from "use-local-storage-state";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { BookMarkType, TagsType } from "@/type/general";
 import { sleep } from "@/lib/util";
 import { EditBrainMarkProps } from "@/type/component";
-import { Textarea } from "../ui/textarea";
-import useLocalStorageState from "use-local-storage-state";
 
 // Defining form type
 type formType = z.infer<typeof formSchema>;
@@ -54,8 +54,8 @@ export default function EditBrainMark({
   open,
 }: EditBrainMarkProps): JSX.Element {
   // Defining hooks
+  const [formTagId, setFormTagId] = useState<string | undefined>(data.tag);
   const [tags] = useLocalStorageState<TagsType[]>("tags");
-  const [formTags, setFormTags] = useState<string[]>([]);
   const [bookmarks, setBookmarks] =
     useLocalStorageState<BookMarkType[]>("bookmarks");
 
@@ -71,9 +71,28 @@ export default function EditBrainMark({
   const tagsToRender = tags ? [...tags] : [];
 
   // Defining a function to handle submit event
-  const submitHandler: SubmitHandler<formType> = async (data) => {
+  const submitHandler: SubmitHandler<formType> = async ({ reason, url }) => {
+    const bookmarksToUse = bookmarks ? [...bookmarks] : [];
+    const tagsToUse = tags ? [...tags] : [];
+    const selectedTag = tagsToUse.find((t) => t.id === Number(formTagId));
+
+    const bookmarksToSet: BookMarkType[] = bookmarksToUse.map((item) =>
+      item.id === data.id
+        ? {
+            ...item,
+            url,
+            why: reason,
+            tag: selectedTag,
+            createdAt: new Date().toISOString(),
+          }
+        : item,
+    );
+
     await sleep(3000);
+
+    setBookmarks(bookmarksToSet);
     onOpenChange?.(false);
+
     toast.success(
       "Brainmark updated! Your refined reason will guide stronger resurfacing. 🧠",
     );
@@ -134,9 +153,7 @@ export default function EditBrainMark({
             {tagsToRender.length !== 0 && (
               <div className="w-full">
                 <FormLabel className="mb-2">Tags (optional)</FormLabel>
-                <Select
-                  onValueChange={(val) => setFormTags((prev) => [...prev, val])}
-                >
+                <Select onValueChange={setFormTagId} value={formTagId}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -145,7 +162,7 @@ export default function EditBrainMark({
                       {tagsToRender.map((item, index) => (
                         <SelectItem
                           key={index}
-                          value={item.label}
+                          value={item.id.toString()}
                           style={{ color: item.color }}
                           className="hover:!bg-current/5"
                         >

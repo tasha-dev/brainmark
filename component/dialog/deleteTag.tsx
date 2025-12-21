@@ -23,7 +23,7 @@ import { sleep } from "@/lib/util";
 import { DeleteTagProps } from "@/type/component";
 
 // Creating and exporting DeleteTag component as default
-export default function DeleteTag({ id, label }: DeleteTagProps): JSX.Element {
+export default function DeleteTag({ id }: DeleteTagProps): JSX.Element {
   // Defining hooks
   const [opened, setOpened] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -39,15 +39,7 @@ export default function DeleteTag({ id, label }: DeleteTagProps): JSX.Element {
     const bookmarksToUse = bookmarks ? [...bookmarks] : [];
 
     const tagsToSet = tagsToUse.filter((item) => item.id !== id);
-    const bookmarksToSet = bookmarksToUse.map((bookmark) => {
-      const filteredTags = bookmark.tags?.filter((tag) => tag.label !== label);
-
-      return {
-        ...bookmark,
-        tags:
-          filteredTags && filteredTags.length > 0 ? filteredTags : undefined,
-      };
-    });
+    const bookmarksToSet = bookmarksToUse.filter((item) => item.tag?.id === id);
 
     await sleep(3000);
 

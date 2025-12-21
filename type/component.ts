@@ -54,7 +54,6 @@ export interface EditTagProps {
 
 export interface DeleteTagProps {
   id: number;
-  label: string;
 }
 
 export interface BrainMarkProps {
@@ -78,7 +77,7 @@ export interface EditBrainMarkProps {
     id: number;
     url: string;
     why: string;
-    tags: string;
+    tag: string | undefined;
   };
   open?: boolean;
   onOpenChange?: (open: boolean) => void;

@@ -50,7 +50,7 @@ type formType = z.infer<typeof formSchema>;
 export default function AddBrainMark(): JSX.Element {
   // Defining hooks
   const [opened, setOpened] = useState<boolean>(false);
-  const [formTags, setFormTags] = useState<string[]>([]);
+  const [formTagId, setFormTagId] = useState<string | undefined>(undefined);
   const [tags] = useLocalStorageState<TagsType[]>("tags");
   const [bookmarks, setBookmarks] =
     useLocalStorageState<BookMarkType[]>("bookmarks");
@@ -64,27 +64,27 @@ export default function AddBrainMark(): JSX.Element {
 
   // Defining a function to handle submit event
   const submitHandler: SubmitHandler<formType> = async (data) => {
-    const bookmarksToUse: BookMarkType[] = !bookmarks ? [] : [...bookmarks];
+    const bookmarksToUse: BookMarkType[] = bookmarks ? [...bookmarks] : [];
     const tagsToUse = tags ? [...tags] : [];
+    const bookmarkLastItemId = bookmarksToUse[bookmarksToUse.length - 1].id;
+    const tagObj = tagsToUse.find((item) => item.id === Number(formTagId));
 
-    const addedItemToCopy: BookMarkType[] = [
+    const bookmarksToSet: BookMarkType[] = [
       ...bookmarksToUse,
       {
-        id: bookmarksToUse[bookmarksToUse.length - 1]
-          ? bookmarksToUse[bookmarksToUse.length - 1].id + 1
-          : 1,
+        id: bookmarkLastItemId ? bookmarkLastItemId + 1 : 0,
+        createdAt: new Date().toISOString(),
         url: data.url,
         why: data.reason,
-        createdAt: new Date().toISOString(),
-        tags: formTags
-          .map((formTag) => tagsToUse.find((tag) => tag.label === formTag))
-          .filter((tag): tag is TagsType => Boolean(tag)), // remove undefined
+        tag: tagObj,
       },
     ];
 
     await sleep(3000);
-    setBookmarks(addedItemToCopy);
+
     setOpened(false);
+    setBookmarks(bookmarksToSet);
+
     toast.success(
       "Mark saved! Your reason will resurface when you need it most. 🧠",
     );
@@ -167,9 +167,7 @@ export default function AddBrainMark(): JSX.Element {
             {tagsToRender.length !== 0 && (
               <div className="w-full">
                 <FormLabel className="mb-2">Tags (optional)</FormLabel>
-                <Select
-                  onValueChange={(val) => setFormTags((prev) => [...prev, val])}
-                >
+                <Select onValueChange={setFormTagId} value={formTagId}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -178,7 +176,7 @@ export default function AddBrainMark(): JSX.Element {
                       {tagsToRender.map((item, index) => (
                         <SelectItem
                           key={index}
-                          value={item.label}
+                          value={item.id.toString()}
                           style={{ color: item.color }}
                           className="hover:!bg-current/5"
                         >

@@ -50,11 +50,11 @@ export default function SideBar({
       />
       <div
         className={cn(
-          "overflow-auto space-y-3 h-dvh flex items-center justify-between flex-col",
+          "overflow-auto scrollbar-hide space-y-3 h-dvh flex items-center justify-between flex-col",
           open ? "visible" : "invisible",
         )}
       >
-        <div className="h-full w-full p-4 space-y-4 overflow-auto">
+        <div className="h-full w-full p-4 space-y-4 overflow-auto scrollbar-hide">
           <AddTag />
           <AddBrainMark />
           <Button

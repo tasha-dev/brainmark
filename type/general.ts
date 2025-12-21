@@ -3,7 +3,7 @@
 export interface BookMarkType {
   url: string;
   why: string;
-  tags?: TagsType[];
+  tag?: TagsType;
   createdAt: string;
   id: number;
 }
