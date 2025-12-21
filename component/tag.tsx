@@ -5,7 +5,7 @@
 // Importing part
 import { JSX } from "react";
 import { TagProps } from "@/type/component";
-import { Tag as TagIcon } from "lucide-react";
+import { Eye, Tag as TagIcon } from "lucide-react";
 import moment from "moment";
 import {
   Card,
@@ -16,6 +16,9 @@ import {
 } from "@/component/ui/card";
 import EditTag from "./dialog/editTag";
 import DeleteTag from "./dialog/deleteTag";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { encode } from "@/lib/util";
 
 // Creating and exporting Tag component as default
 export default function Tag({ className, data }: TagProps): JSX.Element {
@@ -38,6 +41,12 @@ export default function Tag({ className, data }: TagProps): JSX.Element {
         </CardDescription>
       </CardHeader>
       <CardFooter className="block space-y-3">
+        <Button asChild variant={"outline"} size="lg" className="w-full">
+          <Link href={`/dashboard/tags/${encode(data.id, data.label)}`}>
+            <Eye />
+            See bookmarks with this tag
+          </Link>
+        </Button>
         <EditTag color={data.color} id={data.id} label={data.label} />
         <DeleteTag id={data.id} />
       </CardFooter>

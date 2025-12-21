@@ -82,3 +82,9 @@ export interface EditBrainMarkProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
+
+export interface BookMarkOfTagPageProps {
+  params: Promise<{
+    encodedTag: string;
+  }>;
+}

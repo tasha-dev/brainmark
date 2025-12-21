@@ -90,19 +90,21 @@ export default function AddBrainMark(): JSX.Element {
     );
   };
 
-  // Using useEffect to reset form when dialog closes
-  useEffect(() => {
-    if (!opened) {
-      form.reset({
-        reason: "",
-        url: "",
-      });
-    }
-  }, [opened]);
-
   // Retruning JSX
   return (
-    <Dialog open={opened} onOpenChange={setOpened}>
+    <Dialog
+      open={opened}
+      onOpenChange={(open) => {
+        setOpened(open);
+        if (!open) {
+          setFormTagId(undefined);
+          form.reset({
+            reason: "",
+            url: "",
+          });
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button
           className="flex items-center justify-between gap-3 w-full"
