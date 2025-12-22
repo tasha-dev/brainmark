@@ -3,7 +3,7 @@
 "use client";
 
 // Importing part
-import { JSX, useEffect, useState } from "react";
+import { JSX, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -72,7 +72,7 @@ export default function AddBrainMark(): JSX.Element {
     const bookmarksToSet: BookMarkType[] = [
       ...bookmarksToUse,
       {
-        id: bookmarksToUse.length !== 0 ? bookmarkLastItemId.id + 1 : 0,
+        id: bookmarksToUse.length !== 0 ? bookmarkLastItemId.id + 1 : 1,
         createdAt: new Date().toISOString(),
         url: data.url,
         why: data.reason,

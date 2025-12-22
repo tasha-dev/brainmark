@@ -53,11 +53,12 @@ export default function ImportBookmarks(): JSX.Element {
 
   // Defining submit handler
   const onSubmit = async () => {
+    const bookmarkLastItemId = bookmarksToUse[bookmarksToUse.length - 1];
     setUploading(true);
 
     const imported = await importBookmarks(
       files[0],
-      bookmarksToUse[bookmarksToUse.length - 1].id,
+      bookmarksToUse.length !== 0 ? bookmarkLastItemId.id + 1 : 0,
     );
 
     const bookmarksToSet = [...bookmarksToUse, ...imported];
