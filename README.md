@@ -91,8 +91,6 @@ The interface is intentionally minimal:
 
 ## 🖥️ Screenshots
 
-> Add real screenshots to `./screenshots/` before publishing this README.
-
 ### Landing Page
 
 ![Brainmark landing page](./screenshots/landing.png)
